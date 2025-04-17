@@ -2,40 +2,60 @@
 
 namespace Database\Seeders;
 
-use DB;
-use Hash;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class UserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
-    public function run(): void  {
-        $data = [
+    public function run(): void
+    {
+        $users = [
             [
-                'user_id' => 1,
-                'level_id' => 1,
-                'username' => 'admin',
-                'nama' => 'Administrator',
-                'password' => Hash::make('12345'),
+                'nama' => 'Admin Kedua',
+                'username' => 'admin2',
+                'password' => '12345',
+                'level_id' => 1, // admin
             ],
             [
-                'user_id' => 2,
-                'level_id' => 2,
-                'username' => 'manager',
-                'nama' => 'Manager',
-                'password' => Hash::make('12345'),
+                'nama' => 'Budi Santoso',
+                'username' => 'budi123',
+                'password' => '12345',
+                'level_id' => 3, // pegawai
             ],
             [
-                'user_id' => 3,
-                'level_id' => 3,
-                'username' => 'staff',
-                'nama' => 'Staff/Kasir',
-                'password' => Hash::make('12345'),
+                'nama' => 'Siti Rahayu',
+                'username' => 'siti456',
+                'password' => '12345',
+                'level_id' => 3, // pegawai
+            ],
+            [
+                'nama' => 'Agus Wijaya',
+                'username' => 'agus789',
+                'password' => '12345',
+                'level_id' => 3, // pegawai
+            ],
+            [
+                'nama' => 'Dewi Lestari',
+                'username' => 'dewi101',
+                'password' => '12345',
+                'level_id' => 3, // pegawai
             ]
-            ];
-            DB::table('m_user')->insert($data);
+        ];
+
+        foreach ($users as $user) {
+            DB::table('m_user')->insert([
+                'nama' => $user['nama'],
+                'username' => $user['username'],
+                'password' => Hash::make($user['password']),
+                'level_id' => $user['level_id'],
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
     }
 }

@@ -6,6 +6,13 @@ use App\Http\Controllers\LevelController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\DepartemenController;
+use App\Http\Controllers\KaryawanController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PegawaiController;
+use App\Http\Controllers\DashboardController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,22 +27,56 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('/', [WelcomeController::class, 'index']);
 
-Route::group(['prefix' => 'user'], function () {
-    Route::get('/', [UserController::class, 'index'])->name('user.index'); // Menampilkan halaman awal user
-    Route::post('/list', [UserController::class, 'list'])->name('user.list'); // Menampilkan data user dalam JSON untuk datatables
-    Route::get('/create', [UserController::class, 'create'])->name('user.create'); // Menampilkan halaman form tambah user
-    Route::post('/', [UserController::class, 'store'])->name('user.store'); // Menyimpan data user baru
+// Auth Routes
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-    // Ajax
-    Route::get('/create_ajax', [UserController::class, 'create_ajax']);
-    Route::post('/ajax', [UserController::class, 'store_ajax']);
+// Admin Routes
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'admin'])->name('admin.dashboard');
 
-    Route::get('/{id}', [UserController::class, 'show'])
-    ->name('user.show'); // Menampilkan detail user
-    Route::get('/{id}/edit', [UserController::class, 'edit'])->name('user.edit'); // Menampilkan halaman form edit user
-    Route::put('/{id}', [UserController::class, 'update'])->name('user.update'); // Menyimpan perubahan data user
-    Route::delete('/{id}', [UserController::class, 'destroy'])->name('user.destroy'); // Menghapus data user
+    
+    // Karyawan Routes (hanya bisa diakses admin)
+    Route::resource('karyawan', KaryawanController::class);
+    Route::get('/karyawan/list', [KaryawanController::class, 'list'])->name('karyawan.list');
+    
+    // Tambahkan route admin lainnya di sini
 });
+
+// Pegawai Routes
+Route::middleware(['auth', 'role:pegawai'])->prefix('pegawai')->group(function () {
+    Route::get('/dashboard', [PegawaiController::class, 'dashboard'])->name('pegawai.dashboard');
+    
+    // Tambahkan route pegawai lainnya di sini
+});
+
+// Redirect root ke login atau dashboard sesuai role
+Route::get('/', function () {
+    if (Auth::check()) {
+        if (Auth::user()->level_id == 1) {
+            return redirect()->route('admin.dashboard');
+        } else {
+            return redirect()->route('pegawai.dashboard');
+        }
+    }
+    
+    return redirect()->route('login');
+});
+
+
+
+Route::prefix('user')->group(function () {
+    Route::post('/user/list', [UserController::class, 'list'])->name('user.list');
+    Route::get('/', [UserController::class, 'index'])->name('user.index');
+    Route::get('/create', [UserController::class, 'create'])->name('user.create');
+    Route::post('/', [UserController::class, 'store'])->name('user.store');
+    Route::get('/{id}', [UserController::class, 'show'])->name('user.show');
+    Route::get('/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
+    Route::put('/{id}', [UserController::class, 'update'])->name('user.update');
+    Route::delete('/{id}', [UserController::class, 'destroy'])->name('user.destroy');
+});
+
 
 // Level Route
 // Route untuk DataTables AJAX
@@ -45,30 +86,44 @@ Route::post('/level/list', [LevelController::class, 'list'])->name('level.list')
 Route::resource('level', LevelController::class);
 
 
-// Kategori Route
-Route::resource('kategori', KategoriController::class);
-Route::post('kategori/list', [KategoriController::class, 'list'])->name('kategori.list');
 
-
-// Supplier Route
-Route::resource('supplier', SupplierController::class);
-Route::post('supplier/list', [SupplierController::class, 'list'])->name('supplier.list');
-Route::resource('supplier', SupplierController::class);
-Route::post('supplier/list', [SupplierController::class, 'list'])->name('supplier.list');
-
-
-
-
-Route::prefix('barang')->group(function () {
-    Route::get('/', [BarangController::class, 'index'])->name('barang.index'); // Tampilkan halaman barang
-    Route::get('/list', [BarangController::class, 'list'])->name('barang.list'); // DataTables AJAX
-    Route::get('/create', [BarangController::class, 'create'])->name('barang.create'); // Form tambah
-    Route::post('/store', [BarangController::class, 'store'])->name('barang.store'); // Simpan data
-    Route::get('/edit/{id}', [BarangController::class, 'edit'])->name('barang.edit'); // Form edit
-    Route::put('/update/{id}', [BarangController::class, 'update'])->name('barang.update'); // Simpan perubahan
-    Route::delete('/destroy/{id}', [BarangController::class, 'destroy'])->name('barang.destroy'); // Hapus data
-    Route::get('/{id}', [BarangController::class, 'show'])->name('barang.show'); // Detail barang
+Route::prefix('departemen')->group(function () {
+    Route::get('/', [DepartemenController::class, 'index'])->name('departemen.index');
+    Route::post('/list', [DepartemenController::class, 'list'])->name('departemen.list');
+    Route::get('/create', [DepartemenController::class, 'create'])->name('departemen.create');
+    Route::post('/', [DepartemenController::class, 'store'])->name('departemen.store');
+    Route::get('/{id}', [DepartemenController::class, 'show'])->name('departemen.show');
+    Route::get('/{id}/edit', [DepartemenController::class, 'edit'])->name('departemen.edit');
+    Route::put('/{id}', [DepartemenController::class, 'update'])->name('departemen.update');
+    Route::delete('/{id}', [DepartemenController::class, 'destroy'])->name('departemen.destroy');
 });
+
+Route::prefix('jabatan')->group(function () {
+    Route::get('/', [App\Http\Controllers\JabatanController::class, 'index']);
+    Route::get('/create', [App\Http\Controllers\JabatanController::class, 'create']);
+    Route::post('/', [App\Http\Controllers\JabatanController::class, 'store']);
+    Route::get('/{id}/edit', [App\Http\Controllers\JabatanController::class, 'edit']);
+    Route::put('/{id}', [App\Http\Controllers\JabatanController::class, 'update']);
+    Route::delete('/{id}', [App\Http\Controllers\JabatanController::class, 'destroy']);
+    Route::post('/list', [App\Http\Controllers\JabatanController::class, 'list'])->name('jabatan.list');
+});
+
+
+
+
+
+Route::prefix('karyawan')->group(function () {
+    Route::get('/', [KaryawanController::class, 'index'])->name('karyawan.index');
+    Route::post('/list', [KaryawanController::class, 'list'])->name('karyawan.list');
+    Route::get('/create', [KaryawanController::class, 'create'])->name('karyawan.create');
+    Route::post('/', [KaryawanController::class, 'store'])->name('karyawan.store');
+    Route::get('/{id}', [KaryawanController::class, 'show'])->name('karyawan.show');
+    Route::get('/{id}/edit', [KaryawanController::class, 'edit'])->name('karyawan.edit');
+    Route::put('/{id}', [KaryawanController::class, 'update'])->name('karyawan.update');
+    Route::delete('/{id}', [KaryawanController::class, 'destroy'])->name('karyawan.destroy');
+});
+
+
 
 
 

@@ -11,10 +11,10 @@
             <dd class="col-sm-8">{{ $level->level_id }}</dd>
 
             <dt class="col-sm-4">Kode Level</dt>
-            <dd class="col-sm-8">{{ $level->level_kode }}</dd>
+            <dd class="col-sm-8">{{ $level->kode_level }}</dd>
 
             <dt class="col-sm-4">Nama Level</dt>
-            <dd class="col-sm-8">{{ $level->level_nama }}</dd>
+            <dd class="col-sm-8">{{ $level->nama_level }}</dd>
         </dl>
         <a href="{{ route('level.index') }}" class="btn btn-secondary">Kembali</a>
     </div>

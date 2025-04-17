@@ -11,15 +11,15 @@
             @method('PUT')
             <div class="form-group">
                 <label>Kode Level</label>
-                <input type="text" name="level_kode" class="form-control @error('level_kode') is-invalid @enderror" value="{{ old('level_kode', $level->level_kode) }}" required>
-                @error('level_kode')
+                <input type="text" name="kode_level" class="form-control @error('kode_level') is-invalid @enderror" value="{{ old('kode_level', $level->kode_level) }}" required>
+                @error('kode_level')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
             <div class="form-group">
                 <label>Nama Level</label>
-                <input type="text" name="level_nama" class="form-control @error('level_nama') is-invalid @enderror" value="{{ old('level_nama', $level->level_nama) }}" required>
-                @error('level_nama')
+                <input type="text" name="nama_level" class="form-control @error('nama_level') is-invalid @enderror" value="{{ old('nama_level', $level->nama_level) }}" required>
+                @error('nama_level')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>

@@ -1,4 +1,5 @@
 @extends('layouts.template')
+
 @section('content')
 <div class="card card-outline card-primary">
     <div class="card-header">
@@ -9,13 +10,14 @@
         <form method="POST" action="{{ url('user') }}" class="form-horizontal">
             @csrf
             
+            <!-- Level ID -->
             <div class="form-group row">
                 <label class="col-1 control-label col-form-label">Level</label>
                 <div class="col-11">
                     <select class="form-control" id="level_id" name="level_id" required>
                         <option value="">- Pilih Level -</option>
                         @foreach($level as $item)
-                            <option value="{{ $item->level_id }}">{{ $item->level_nama }}</option>
+                            <option value="{{ $item->level_id }}">{{ $item->nama_level }}</option>
                         @endforeach
                     </select>
                     @error('level_id')
@@ -24,6 +26,7 @@
                 </div>
             </div>
             
+            <!-- Username -->
             <div class="form-group row">
                 <label class="col-1 control-label col-form-label">Username</label>
                 <div class="col-11">
@@ -34,6 +37,7 @@
                 </div>
             </div>
             
+            <!-- Nama -->
             <div class="form-group row">
                 <label class="col-1 control-label col-form-label">Nama</label>
                 <div class="col-11">
@@ -44,6 +48,7 @@
                 </div>
             </div>
             
+            <!-- Password -->
             <div class="form-group row">
                 <label class="col-1 control-label col-form-label">Password</label>
                 <div class="col-11">
@@ -54,6 +59,7 @@
                 </div>
             </div>
             
+            <!-- Submit Button -->
             <div class="form-group row">
                 <label class="col-1 control-label col-form-label"></label>
                 <div class="col-11">

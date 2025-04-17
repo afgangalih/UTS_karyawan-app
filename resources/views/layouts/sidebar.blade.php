@@ -38,41 +38,54 @@
                 </a>
             </li>
 
-            <!-- Data Barang -->
-            <li class="nav-header">Data Barang</li>
-            <li class="nav-item">
-                <a href="{{ url('/kategori') }}" class="nav-link {{ ($activeMenu == 'kategori') ? 'active' : '' }}">
-                    <i class="nav-icon far fa-bookmark"></i>
-                    <p>Kategori Barang</p>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ url('/barang') }}" class="nav-link {{ ($activeMenu == 'barang') ? 'active' : '' }}">
-                    <i class="nav-icon far fa-list-alt"></i>
-                    <p>Data Barang</p>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ url('/supplier') }}" class="nav-link {{ ($activeMenu == 'supplier') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-truck"></i>
-                    <p>Supplier</p>
-                </a>
-            </li>
+            <!-- Data Departemen -->
+<li class="nav-header">Data Departemen</li>
+<li class="nav-item">
+    <a href="{{ url('/departemen') }}" class="nav-link {{ ($activeMenu == 'departemen') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-building"></i>
+        <p>Data Departemen</p>
+    </a>
+</li>
+
+
+<li class="nav-item">
+    <a href="{{ url('/jabatan') }}" class="nav-link {{ ($activeMenu == 'jabatan') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-briefcase"></i>
+        <p>Data Jabatan</p>
+    </a>
+</li>
+
+        <!-- Data Karyawan -->
+<li class="nav-header">Data Karyawan</li>
+<li class="nav-item">
+    <a href="{{ url('/karyawan') }}" class="nav-link {{ ($activeMenu == 'karyawan') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-users"></i>
+        <p>Data Karyawan</p>
+    </a>
+</li>
+
+
+<!-- Logout -->
+<li class="nav-header">Logout</li>
+<li class="nav-item">
+    <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+        @csrf
+        <button type="submit" class="nav-link btn btn-link text-left" style="color: #c2c7d0; width: 100%; text-align: left;">
+            <i class="nav-icon fas fa-sign-out-alt"></i>
+            <p>Logout</p>
+        </button>
+    </form>
+</li>
+
+
+
+        
+
+
+          
 
             <!-- Data Transaksi -->
-            <li class="nav-header">Data Transaksi</li>
-            <li class="nav-item">
-                <a href="{{ url('/stok') }}" class="nav-link {{ ($activeMenu == 'stok') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-cubes"></i>
-                    <p>Stok Barang</p>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ url('/penjualan') }}" class="nav-link {{ ($activeMenu == 'penjualan') ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-cash-register"></i>
-                    <p>Transaksi Penjualan</p>
-                </a>
-            </li>
+        
         </ul>
     </nav>
 </div>

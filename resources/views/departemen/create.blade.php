@@ -1,29 +1,29 @@
 @extends('layouts.template')
     
-@section('title', 'Tambah Level Karyawan')
+@section('title', 'Tambah Departemen')
 
 @section('content')
 <div class="container">
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Tambah Level Karyawan Baru</h3>
+            <h3 class="card-title">Tambah Departemen Baru</h3>
         </div>
         <div class="card-body">
-            <form action="{{ route('level.store') }}" method="POST">
+            <form action="{{ route('departemen.store') }}" method="POST">
                 @csrf
                 
                 <div class="row mb-3">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label for="kode_level" class="form-label">Kode Level</label>
+                            <label for="kode_departemen" class="form-label">Kode Departemen</label>
                             <input type="text" 
-                                   class="form-control @error('kode_level') is-invalid @enderror" 
-                                   id="kode_level" 
-                                   name="kode_level" 
-                                   value="{{ old('kode_level') }}" 
-                                   placeholder="Contoh: LVL001" 
+                                   class="form-control @error('kode_departemen') is-invalid @enderror" 
+                                   id="kode_departemen" 
+                                   name="kode_departemen" 
+                                   value="{{ old('kode_departemen') }}" 
+                                   placeholder="Contoh: DEP001" 
                                    required>
-                            @error('kode_level')
+                            @error('kode_departemen')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
@@ -33,15 +33,15 @@
                 <div class="row mb-3">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label for="nama_level" class="form-label">Nama Level</label>
+                            <label for="nama_departemen" class="form-label">Nama Departemen</label>
                             <input type="text" 
-                                   class="form-control @error('nama_level') is-invalid @enderror" 
-                                   id="nama_level" 
-                                   name="nama_level" 
-                                   value="{{ old('nama_level') }}" 
-                                   placeholder="Contoh: Supervisor" 
+                                   class="form-control @error('nama_departemen') is-invalid @enderror" 
+                                   id="nama_departemen" 
+                                   name="nama_departemen" 
+                                   value="{{ old('nama_departemen') }}" 
+                                   placeholder="Contoh: Teknologi Informasi" 
                                    required>
-                            @error('nama_level')
+                            @error('nama_departemen')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
@@ -51,7 +51,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="d-flex justify-content-between">
-                            <a href="{{ route('level.index') }}" class="btn btn-secondary">
+                            <a href="{{ route('departemen.index') }}" class="btn btn-secondary">
                                 <i class="fas fa-arrow-left mr-2"></i>Kembali
                             </a>
                             <button type="submit" class="btn btn-primary">

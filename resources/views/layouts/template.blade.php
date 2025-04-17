@@ -35,7 +35,7 @@
     <!-- Brand Logo -->
     <a href="{{ url('/') }}" class="brand-link">
       <img src="{{ asset('adminlte/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image elevation-3 img-circle" style="opacity: .8">
-      <span class="brand-text font-weight-light">PWL - Starter Code</span>
+      <span class="brand-text font-weight-light">SIMAKAR</span>
     </a>
 
     @include('layouts.sidebar')

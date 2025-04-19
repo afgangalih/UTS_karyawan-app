@@ -64,6 +64,16 @@
     </a>
 </li>
 
+<!-- Manajemen Cuti -->
+<li class="nav-header">Manajemen Cuti</li>
+<li class="nav-item">
+    <a href="{{ url('/cuti') }}" class="nav-link {{ ($activeMenu == 'cuti') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-calendar-check"></i>
+        <p>Data Cuti</p>
+    </a>
+</li>
+
+
 
 <!-- Logout -->
 <li class="nav-header">Logout</li>

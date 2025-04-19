@@ -12,6 +12,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\CutiController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -121,6 +122,17 @@ Route::prefix('karyawan')->group(function () {
     Route::get('/{id}/edit', [KaryawanController::class, 'edit'])->name('karyawan.edit');
     Route::put('/{id}', [KaryawanController::class, 'update'])->name('karyawan.update');
     Route::delete('/{id}', [KaryawanController::class, 'destroy'])->name('karyawan.destroy');
+});
+
+
+Route::prefix('cuti')->group(function () {
+    Route::get('/', [CutiController::class, 'index'])->name('cuti.index');
+    Route::post('/', [CutiController::class, 'store'])->name('cuti.store'); // Changed from '/store'
+    Route::post('/list', [CutiController::class, 'list'])->name('cuti.list');
+    Route::get('/create', [CutiController::class, 'create'])->name('cuti.create');
+    //Route::post('/validasi/{id}', [CutiController::class, 'validasi'])->name('cuti.validasi');
+    Route::post('/cuti/{id}/validasi', [CutiController::class, 'validasi'])->name('cuti.validasi');
+    Route::delete('/cuti/{cuti}', [CutiController::class, 'destroy'])->name('cuti.destroy');
 });
 
 
